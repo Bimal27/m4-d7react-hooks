@@ -12,7 +12,8 @@ class CommentArea extends Component{
         isError: false
     }
 
-    componentDidMount = async () =>{
+    componentDidUpdate = async (prevProps) =>{
+        if(prevProps.asin !==this.props.asin){
         this.setState({
             isLoading: true
           })
@@ -40,7 +41,7 @@ class CommentArea extends Component{
               })
             
         }
-       
+    }
     }
     render(){
        
@@ -70,7 +71,7 @@ class CommentArea extends Component{
                 )
             }
              
-             <AddComment asin={this.props.asin}/>
+            {this.props.asin && <AddComment asin={this.props.asin}/>}
    </>
         )
         

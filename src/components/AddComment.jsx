@@ -6,14 +6,26 @@ class AddComment extends Component{
         comments:{
             comment:"",
             rate: 1,
-            elementId: this.props.asin
+            elementId: null
         }
       
+    }
+    componentDidUpdate (prevProps){
+        if(prevProps.asin !== this.props.asin){
+            this.setState({
+                comments:{
+                    ...this.state.comments,
+                    elementId: this.props.asin
+                }
+            })
+        }
+
     }
 
     handleInput = async (e) =>{
         try {
-            const response = await fetch(" https://striveschool-api.herokuapp.com/api/comments" + this.state.comments.elementId,{
+            e.preventDefault();
+            const response = await fetch(" https://striveschool-api.herokuapp.com/api/comments",{
                 method:"POST",
                 body: JSON.stringify(this.state.comments),
                 headers:{
@@ -36,22 +48,22 @@ class AddComment extends Component{
 
         return(
            <Form onSubmit={this.handleInput}>
-               <Form.Group controlId="exampleForm.ControlInput1">
+               <Form.Group >
                     
                     <Form.Control type="text" placeholder="add comment" 
                     value={this.state.comments.comment}
                     onChange={e =>this.setState({comments:{
-                        ...this.state.comment,
+                        ...this.state.comments,
                         comment:e.target.value
                     }
                 })}
                      />
                 </Form.Group>
-                <Form.Group controlId="exampleForm.ControlSelect1">
+                <Form.Group >
                     <Form.Label>Rate</Form.Label>
                     <Form.Control as="select" value={this.state.comments.rate}
                     onChange={e =>this.setState({comments:{
-                        ...this.state.comment,
+                        ...this.state.comments,
                         rate:e.target.value
                     }
                 })}>
