@@ -1,15 +1,18 @@
 
-import { Component } from 'react'
+
 import {Container,Col, Row, FormControl} from 'react-bootstrap'
 import SingleBook from './SingleBook'
 import CommentArea from './CommentArea'
+import { useState } from 'react'
 
-class BookList extends Component {
-    state={
-        query:'',
-         bookSelected: null
-    }
-    render(){
+const BookList = ({books}) => {
+    // state={
+    //     query:'',
+    //      bookSelected: null
+    // }
+    const [query ,setQuery] = useState('')
+    const [bookSelected ,setBookSelected] = useState(null)
+   
         return(
                 <Container>
                     <Row>
@@ -19,19 +22,20 @@ class BookList extends Component {
                     <Row>
                         <Col>
                         <FormControl  type="text" placeholder="Search" className="mr-sm-2 my-4"
-                        value={this.state.query} 
-                        onChange={e =>this.setState({query: e.target.value})}
+                        value={query} 
+                        onChange={e =>setQuery(e.target.value)}
                         />
                         </Col>
                     </Row>
                         <Row>
                             {
-                                this.props.books.filter(b => b.title.toLowerCase().includes(this.state.query)).map(b =>(
+                                books.filter(b => b.title.toLowerCase().includes(query)).map(b =>(
                                     <Col>
                                     <SingleBook book ={b} onBookSelect = {asin =>
-                                        this.setState({
-                                            bookSelected: asin
-                                        })
+                                        // this.setState({
+                                        //     bookSelected: asin
+                                        // })
+                                        setBookSelected(asin)
                                     }/>
                                     </Col>
                                 ))
@@ -40,12 +44,12 @@ class BookList extends Component {
                         </Row>
                           </Col>
                           <Col md={3}>
-                             <CommentArea asin={this.state.bookSelected}/>
+                             <CommentArea asin={bookSelected}/>
                           </Col>
                         </Row>
                 </Container>
         )
-    }
+    
 
 }
     

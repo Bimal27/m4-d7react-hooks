@@ -4,9 +4,9 @@
 
 import './App.css';
 import MyNav from './components/MyNav';
-import WarningSign from './components/WarningSign';
-import Badge from './components/Badge';
-import SingleBook from './components/SingleBook';
+// import WarningSign from './components/WarningSign';
+// import Badge from './components/Badge';
+// import SingleBook from './components/SingleBook';
 import fantasy from './fantasy.json';
 import BookList from './components/BookList';
 
